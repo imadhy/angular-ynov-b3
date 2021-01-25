@@ -1,0 +1,70 @@
+<h3>{{ title | lowercase }}</h3>
+<hr>
+
+<app-panel>
+  <h2 class="heading" >My Title</h2>
+  <p class="body" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis sapiente fugit similique dolores ratione, ullam quaerat. Illum possimus recusandae, quaerat, eveniet quos maiores non explicabo velit odio temporibus impedit rerum?</p>
+</app-panel>
+
+<hr>
+<span>{{ produit.dateApparition | date:'MM/YYYY' }}</span>
+<br /><br /><br />
+<span>{{ produit.qty | ajouteZero }}</span>
+
+<br /><br /><br />
+<h5 *ngIf="sousTitre" >Le sous-titre : {{ sousTitre }}</h5>
+
+<!-- <ul>
+  <li *ngFor="let movie of listeMovies" >{{ movie }}</li>
+</ul> -->
+
+<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+<button type="button" class="btn btn-primary">Primary</button>
+
+<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+<!-- Property binding -->
+<!-- <img src="{{imgUrl}}" /> -->
+<img [src]="imgUrl" />
+
+<!-- Attribute binding -->
+<table>
+  <tr>
+    <td [attr.colspan]="col"></td>
+  </tr>
+</table>
+
+<!-- <button 
+  type="button" 
+  class="btn btn-primary btn-lg" 
+  [class.active]="isActive">
+Primary button
+</button> -->
+
+<div (click)="onDiv()">
+  <button 
+  type="button" 
+  class="btn btn-primary btn-lg " 
+  (click)="onSubmit($event)">
+    Primary button
+  </button>
+</div>
+
+<button type="button" [style.backgroundColor] = "isActive ? 'blue' : 'white'">Primary button</button>
+
+<!-- <input #mail (keyup.enter)="onKeyUp(mail.value)" /> -->
+
+<input [(ngModel)]="email" (keyup.enter)="onKeyUp()" />
+
+
+
+
+<ul>
+  <li class="clickable" *ngFor="let personne of personnes" [style.color] = "personne.isOnline ? 'green' : 'red'" >{{ personne.name }}</li>
+</ul>
+
+
+
+
+<app-affichage [paragraphe]="paragraphe" (onSave)="onDiv($event)" ></app-affichage>
+<hr />
+<app-panel></app-panel>

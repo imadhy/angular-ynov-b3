@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <ng-content select=".heading"></ng-content>
+  </div>
+  <div class="panel-body">
+    <ng-content select=".body"></ng-content>
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="changerAffichage()" >
+    Changer
+  </button>
+  <br>
+  <!-- <div style="color: red" *ngIf="isTrue;then text;else chat"></div> -->
+  <div style="color: red" *ngIf="isTrue">
+    Le chat mange
+  </div>
+
+  <div style="color: blueviolet" [hidden]="isTrue">
+    compiled successfully
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" [class.active]="viewMode == 'personnes'"><a (click)="viewMode = 'personnes'">Personnes</a></li>
+        <li class="nav-item" [class.active]="viewMode == 'armes'"><a (click)="viewMode = 'armes'">Armes</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'personnes'">Personnes content</div>
+    <div *ngSwitchCase="'armes'">Armes content</div>
+    <div *ngSwitchDefault>Defaut</div>
+  </div>
+
+  <button (click)="addProduit()" >Ajouter produit</button>
+
+  <ul>
+    <li *ngFor="let produit of produits; trackBy: trackPeroduitId"><span></span>{{ produit.name }}</li>
+  </ul>
+
+  <button 
+  [ngStyle]="{backgroundColor: isTrue ? 'blue' : 'red', color: isTrue ? 'white' : 'black' }">
+  Button</button>
+
+
+  <h1>{{ personne.addresse?.codePostal }}</h1>
+
+  <input type="text" appCapital [format]="'uppercase'"/>
+</div>
+
+<ul>
+  <li *ngFor="let people of peoples">{{ people.name }}</li>
+</ul>
+
+  <!-- <div style="color: red" *ngIf="isTrue">
+    Text a afficher
+  </div> -->
+
+  <!-- <ng-template [ngIf]="isTrue">
+    <div style="color: red">
+      Text a afficher
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="!isTrue">
+    <div style="color: red">
+      Le chat mange
+    </div>
+  </ng-template>
+</div> -->
+
+<!-- <ng-template #text>
+  <h1>Text a afficher</h1>
+</ng-template>
+<ng-template #chat>
+  <h5>Le chat mange</h5>
+</ng-template> -->
