@@ -1,4 +1,4 @@
-<h3>{{ title | lowercase }}</h3>
+<!-- <h3>{{ title | lowercase }}</h3>
 <hr>
 
 <app-panel>
@@ -12,26 +12,26 @@
 <span>{{ produit.qty | ajouteZero }}</span>
 
 <br /><br /><br />
-<h5 *ngIf="sousTitre" >Le sous-titre : {{ sousTitre }}</h5>
+<h5 *ngIf="sousTitre" >Le sous-titre : {{ sousTitre }}</h5> -->
 
 <!-- <ul>
   <li *ngFor="let movie of listeMovies" >{{ movie }}</li>
 </ul> -->
 
 <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-<button type="button" class="btn btn-primary">Primary</button>
+<!-- <button type="button" class="btn btn-primary">Primary</button>
 
-<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span> -->
 <!-- Property binding -->
 <!-- <img src="{{imgUrl}}" /> -->
-<img [src]="imgUrl" />
+<!-- <img [src]="imgUrl" /> -->
 
 <!-- Attribute binding -->
-<table>
+<!-- <table>
   <tr>
     <td [attr.colspan]="col"></td>
   </tr>
-</table>
+</table> -->
 
 <!-- <button 
   type="button" 
@@ -40,7 +40,7 @@
 Primary button
 </button> -->
 
-<div (click)="onDiv()">
+<!-- <div (click)="onDiv()">
   <button 
   type="button" 
   class="btn btn-primary btn-lg " 
@@ -49,11 +49,11 @@ Primary button
   </button>
 </div>
 
-<button type="button" [style.backgroundColor] = "isActive ? 'blue' : 'white'">Primary button</button>
+<button type="button" [style.backgroundColor] = "isActive ? 'blue' : 'white'">Primary button</button> -->
 
 <!-- <input #mail (keyup.enter)="onKeyUp(mail.value)" /> -->
 
-<input [(ngModel)]="email" (keyup.enter)="onKeyUp()" />
+<!-- <input [(ngModel)]="email" (keyup.enter)="onKeyUp()" />
 
 
 
@@ -67,4 +67,12 @@ Primary button
 
 <app-affichage [paragraphe]="paragraphe" (onSave)="onDiv($event)" ></app-affichage>
 <hr />
-<app-panel></app-panel>
+<app-panel></app-panel> -->
+
+<button type="button" class="btn btn-primary" (click)="addArticle()">Add</button>
+
+<ul>
+  <li *ngFor="let article of listeDesArticles" >
+    <button type="button" class="btn btn-danger" (click)="deleteArticle(article.id)">Delete</button> {{ article.title }}
+  </li>
+</ul>

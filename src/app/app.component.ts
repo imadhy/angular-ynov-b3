@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from './models/article.model';
 import { Produit } from './models/porduit.model';
 import { MoviesApiService } from './services/movies-api.service';
+import { PlaygroundApiService } from './services/playground-api.service';
 
 @Component({
   selector: 'app-root',
@@ -45,10 +47,17 @@ export class AppComponent implements OnInit {
 
   paragraphe = 'yeyy it\'s working😄';
 
-  constructor(private moviesService: MoviesApiService) { }
+  listeDesArticles: Article[];
+
+  constructor(
+    private moviesService: MoviesApiService,
+    private pgApi: PlaygroundApiService
+  ) { }
 
   ngOnInit() {
     this.listeMovies = this.moviesService.getMovies();
+
+    this.pgApi.getAllArticle().subscribe((articles: Article[]) => this.listeDesArticles = articles);
   }
 
   onSubmit(e: Event) {
@@ -63,5 +72,20 @@ export class AppComponent implements OnInit {
   onKeyUp() {
     console.log(this.title);
     console.log(this.email);
+  }
+
+  addArticle() {
+    const article: Article = {
+      userId: 55,
+      title: 'This is a title',
+      body: 'This is a body'
+    }
+
+    // this.pgApi.createArticle(article).subscribe((article: Article) => console.log(article));
+    this.pgApi.createArticle(article).subscribe(console.log);
+  }
+
+  deleteArticle(articleId: number) {
+    this.pgApi.deleteArticle(articleId).subscribe();
   }
 }
