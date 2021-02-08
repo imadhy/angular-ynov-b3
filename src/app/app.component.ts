@@ -4,9 +4,10 @@ import { Produit } from './models/porduit.model';
 import { MoviesApiService } from './services/movies-api.service';
 import { PlaygroundApiService } from './services/playground-api.service';
 import { SwapiService } from './services/swapi.service';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { People } from './models/people.model';
 import { Film } from './models/film.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -51,10 +52,11 @@ export class AppComponent implements OnInit {
 
   paragraphe = 'yeyy it\'s working😄';
 
-  listeDesArticles: Article[];
+  listeDesArticles$: Observable<Article[]>;
   articleSelected: Article;
 
-  filmTitle: string;
+  filmTitle$: Observable<string>;
+  film$: Observable<Film>;
 
   constructor(
     private moviesService: MoviesApiService,
@@ -65,11 +67,19 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.listeMovies = this.moviesService.getMovies();
 
-    this.pgApi.getAllArticle().subscribe((articles: Article[]) => this.listeDesArticles = articles);
+    this.listeDesArticles$ = this.pgApi.getAllArticle();
+    // this.pgApi.getAllArticle().subscribe((articles: Article[]) => this.listeDesArticles = articles);
 
-    this.swapi.getPeopleById(1).pipe(
+    // 1ere facon de faire
+    this.film$ = this.swapi.getPeopleById(1).pipe(
       switchMap((people: People) => this.swapi.getFilmByUrl(people.films[people.films.length - 1]))
-    ).subscribe((film: Film) => this.filmTitle = film.title);
+    );
+
+    // 2eme facon de faire
+    this.filmTitle$ = this.swapi.getPeopleById(1).pipe(
+      switchMap((people: People) => this.swapi.getFilmByUrl(people.films[people.films.length - 1])),
+      map((film: Film) => film.title)
+    );
   }
 
   onSubmit(e: Event) {

@@ -69,9 +69,13 @@ Primary button
 <hr />
 <app-panel></app-panel> -->
 
-<h1>{{ filmTitle }}</h1>
+<!-- 1ere facon de faire -->
+<h1 *ngIf="film$ | async as film" >{{ film.title }}</h1>
 
-<button type="button" class="btn btn-primary" (click)="addArticle()">Add</button>
+<!--  facon de faire -->
+<h1 *ngIf="filmTitle$ | async as title" >{{ title }}</h1>
+
+<!-- <button type="button" class="btn btn-primary" (click)="addArticle()">Add</button>
 
 <div *ngIf="articleSelected" >
   Title : {{ articleSelected.title }} <br />
@@ -81,9 +85,12 @@ Primary button
 </div>
 
 <ul>
-  <li *ngFor="let article of listeDesArticles" >
+  <li *ngFor="let article of listeDesArticles$ | async as listeDesArticles" >
+    {{ listeDesArticles.length }}
     <button type="button" class="btn btn-primary" (click)="showArticle(article.id)">Show</button>
     <button type="button" class="btn btn-danger" (click)="deleteArticle(article.id)">Delete</button> 
     {{ article.title }}
   </li>
-</ul>
+</ul> -->
+
+<app-formulaire></app-formulaire>

@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AffichageComponent } from './affichage/affichage.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AjouteZeroPipe } from './pipe/ajoute-zero.pipe';
 import { PanelComponent } from './panel/panel.component';
 import { CapitalDirective } from './directive/capital.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { FormulaireComponent } from './formulaire/formulaire.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { HttpClientModule } from '@angular/common/http';
     AffichageComponent,
     AjouteZeroPipe,
     PanelComponent,
-    CapitalDirective
+    CapitalDirective,
+    FormulaireComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
