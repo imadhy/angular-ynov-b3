@@ -69,10 +69,21 @@ Primary button
 <hr />
 <app-panel></app-panel> -->
 
+<h1>{{ filmTitle }}</h1>
+
 <button type="button" class="btn btn-primary" (click)="addArticle()">Add</button>
+
+<div *ngIf="articleSelected" >
+  Title : {{ articleSelected.title }} <br />
+  User id : {{ articleSelected.userId }} <br />
+  Body : {{ articleSelected.body }} <br />
+  isChecked : {{ articleSelected.isChecked }}
+</div>
 
 <ul>
   <li *ngFor="let article of listeDesArticles" >
-    <button type="button" class="btn btn-danger" (click)="deleteArticle(article.id)">Delete</button> {{ article.title }}
+    <button type="button" class="btn btn-primary" (click)="showArticle(article.id)">Show</button>
+    <button type="button" class="btn btn-danger" (click)="deleteArticle(article.id)">Delete</button> 
+    {{ article.title }}
   </li>
 </ul>

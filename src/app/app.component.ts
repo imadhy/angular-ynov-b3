@@ -3,6 +3,10 @@ import { Article } from './models/article.model';
 import { Produit } from './models/porduit.model';
 import { MoviesApiService } from './services/movies-api.service';
 import { PlaygroundApiService } from './services/playground-api.service';
+import { SwapiService } from './services/swapi.service';
+import { switchMap } from 'rxjs/operators';
+import { People } from './models/people.model';
+import { Film } from './models/film.model';
 
 @Component({
   selector: 'app-root',
@@ -48,9 +52,13 @@ export class AppComponent implements OnInit {
   paragraphe = 'yeyy it\'s working😄';
 
   listeDesArticles: Article[];
+  articleSelected: Article;
+
+  filmTitle: string;
 
   constructor(
     private moviesService: MoviesApiService,
+    private swapi: SwapiService,
     private pgApi: PlaygroundApiService
   ) { }
 
@@ -58,6 +66,10 @@ export class AppComponent implements OnInit {
     this.listeMovies = this.moviesService.getMovies();
 
     this.pgApi.getAllArticle().subscribe((articles: Article[]) => this.listeDesArticles = articles);
+
+    this.swapi.getPeopleById(1).pipe(
+      switchMap((people: People) => this.swapi.getFilmByUrl(people.films[people.films.length - 1]))
+    ).subscribe((film: Film) => this.filmTitle = film.title);
   }
 
   onSubmit(e: Event) {
@@ -87,5 +99,12 @@ export class AppComponent implements OnInit {
 
   deleteArticle(articleId: number) {
     this.pgApi.deleteArticle(articleId).subscribe();
+  }
+
+  showArticle(articleId: number) {
+    this.pgApi.getArticle(articleId).subscribe(
+      (article: Article) => this.articleSelected = article,
+      (error) => console.log(error)
+    );
   }
 }
