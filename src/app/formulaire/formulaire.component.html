@@ -1,5 +1,17 @@
 <form [formGroup]="loginForm">
   <div class="form-group">
+    <label for="Name">Name</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Enter name"
+      formControlName="name"
+    >
+    <div
+      class="alert alert-danger"
+      *ngIf="name.touched && name.errors?.shouldBeUnique"
+    >Name should be unique</div>
+    <div *ngIf="name.pending" >Checking name...</div>
     <label for="exampleInputEmail1">Email address</label>
     <input 
       type="email" 
@@ -15,6 +27,15 @@
       class="alert alert-danger"
       *ngIf="email.touched && email.errors?.email"
     >Email format is incorrect</div>
+    <div
+      class="alert alert-danger"
+      *ngIf="email.touched && email.errors?.cannotContainSpaces"
+    >Email should not contain spaces</div>
+    <div
+      class="alert alert-danger"
+      *ngIf="email.touched && email.errors?.shouldBeUnique"
+    >Email should be unique</div>
+    <div *ngIf="email.pending" >Checking email...</div>
 
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>

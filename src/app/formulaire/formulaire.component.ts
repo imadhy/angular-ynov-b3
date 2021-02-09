@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailValidators } from '../validators/email.validator';
+import { NameValidatorsService } from '../validators/name-validators.service';
 
 @Component({
   selector: 'app-formulaire',
@@ -14,12 +16,21 @@ export class FormulaireComponent implements OnInit {
     return this.loginForm.get('email');
   }
 
-  constructor() { }
+  get name() {
+    return this.loginForm.get('name');
+  }
+
+  constructor(private nameValidators: NameValidatorsService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl()
+      name: new FormControl('', {
+        validators: [],
+        asyncValidators: [this.nameValidators.uniqueName()],
+        updateOn: 'blur'
+      }),
+      email: new FormControl('', [Validators.required, EmailValidators.cannotContainSpaces], EmailValidators.shouldBeUnique),
+      password: new FormControl('')
     });
   }
 
