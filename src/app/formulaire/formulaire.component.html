@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm">
+<!-- <form [formGroup]="loginForm">
   <div class="form-group">
     <label for="Name">Name</label>
     <input 
@@ -12,6 +12,8 @@
       *ngIf="name.touched && name.errors?.shouldBeUnique"
     >Name should be unique</div>
     <div *ngIf="name.pending" >Checking name...</div>
+  </div>
+  <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input 
       type="email" 
@@ -48,10 +50,53 @@
       formControlName="password"
     >
   </div>
-  <!-- <div class="form-check">
+  <fieldset>
+    <legend>Adresse</legend>
+    <div class="form-group" formGroupName="adresse">
+      <div class="form-group">
+        <label for="Rue">Rue</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Rue"
+          formControlName="rue"
+        >
+      </div>
+      <div class="form-group">
+        <label for="postalCode">Code Postale</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Code Postale"
+          formControlName="codePostale"
+        >
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div> -->
+  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
   <pre><code>{{ loginForm.value | json }}</code></pre>
+</form> -->
+
+<form [formGroup]="topicForm">
+  <div class="form-group">
+    <label for="topic">Topics</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Enter topic"
+      (keyup.enter)="addTopic(topic)"
+      #topic
+    >
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let topic of topics.controls">
+      {{ topic.value }} <a style="text-decoration: none; color: red; cursor: pointer;" (click)="removeTopic(topic)" >X</a>
+    </li>
+  </ul>
 </form>

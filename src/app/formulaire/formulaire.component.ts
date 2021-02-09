@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmailValidators } from '../validators/email.validator';
 import { NameValidatorsService } from '../validators/name-validators.service';
 
@@ -11,6 +11,7 @@ import { NameValidatorsService } from '../validators/name-validators.service';
 export class FormulaireComponent implements OnInit {
 
   loginForm: FormGroup;
+  topicForm: FormGroup;
 
   get email() {
     return this.loginForm.get('email');
@@ -18,6 +19,10 @@ export class FormulaireComponent implements OnInit {
 
   get name() {
     return this.loginForm.get('name');
+  }
+
+  get topics() {
+    return this.topicForm.get('topics') as FormArray;
   }
 
   constructor(private nameValidators: NameValidatorsService) { }
@@ -30,8 +35,25 @@ export class FormulaireComponent implements OnInit {
         updateOn: 'blur'
       }),
       email: new FormControl('', [Validators.required, EmailValidators.cannotContainSpaces], EmailValidators.shouldBeUnique),
-      password: new FormControl('')
+      password: new FormControl(''),
+      adresse: new FormGroup({
+        rue: new FormControl(),
+        codePostale: new FormControl()
+      })
+    });
+
+    this.topicForm = new FormGroup({
+      topics: new FormArray([])
     });
   }
 
+  addTopic(topic: HTMLInputElement) {
+    this.topics.push(new FormControl(topic.value));
+    topic.value = '';
+  }
+
+  removeTopic(topic) {
+    const index = this.topics.controls.indexOf(topic);
+    this.topics.removeAt(index);
+  }
 }
