@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmailValidators } from '../validators/email.validator';
 import { NameValidatorsService } from '../validators/name-validators.service';
 
@@ -25,9 +25,20 @@ export class FormulaireComponent implements OnInit {
     return this.topicForm.get('topics') as FormArray;
   }
 
-  constructor(private nameValidators: NameValidatorsService) { }
+  constructor(private nameValidators: NameValidatorsService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.loginForm = this.fb.group({
+      name: ['', [Validators.required], [this.nameValidators.uniqueName()]],
+      email: [],
+      password: [],
+      adresse: this.fb.group({
+        rue: [],
+        codePostale: []
+      })
+    });
+
     this.loginForm = new FormGroup({
       name: new FormControl('', {
         validators: [],
